@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SpiltCal</title>
+    <link rel="stylesheet" href="">
+</head>
+<body>
+    <div class="landing-page">
+        <div class="background-slider">
+            <div class="slide" style="background-image: url('https://res.cloudinary.com/dalmvzwgj/image/upload/v1725719153/img5_xlg1qi.jpg');"></div>
+            <div class="slide" style="background-image: url('https://res.cloudinary.com/dalmvzwgj/image/upload/v1725719197/img2_b0jmpx.jpg');"></div>
+            <div class="slide" style="background-image: url('https://res.cloudinary.com/dalmvzwgj/image/upload/v1725719177/img3_l9nfhl.jpg');"></div>
+            <div class="slide" style="background-image: url('https://res.cloudinary.com/dalmvzwgj/image/upload/v1725719220/img7_supfxz.jpg');"></div>
+        </div>
+        <div class="content">
+            <h1 class="heading">Welcome to <span>Starbucks</span></h1>
+            <br>
+            <br>
+            <button class="cta-button" ><!-- Correct usage in templates -->
+                <a href="{{ url_for('bill_splitter') }}">Split Bill</a>
+                </button>
+        </div>
+    </div>
+
+    <style>
+        * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body, html {
+    height: 100%;
+    font-family: Arial, sans-serif;
+}
+
+.landing-page {
+    position: relative;
+    width: 100%;
+    height: 100vh;
+    overflow: hidden;
+}
+
+.background-slider {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+}
+
+.slide {
+    min-width: 100%;
+    height: 100%;
+    background-size: cover;
+    background-position: center;
+    transition: opacity 1s ease-in-out;
+    position: absolute;
+    opacity: 0;
+    animation: slideAnimation 6s infinite; /* Reduced the duration from 10s to 6s */
+}
+
+.slide:nth-child(1) {
+    animation-delay: 0s;
+}
+
+.slide:nth-child(2) {
+    animation-delay: 2s; /* Adjusted to match the shorter duration */
+}
+
+.slide:nth-child(3) {
+    animation-delay: 4s; /* Adjusted to match the shorter duration */
+}
+
+@keyframes slideAnimation {
+    0%, 33.33% { opacity: 1; }
+    33.34%, 100% { opacity: 0; }
+}
+
+
+.content {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+    z-index: 10;
+}
+
+.heading {
+    font-size: 48px;
+    color: red;
+    text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.7); /* Adds a shadow to make it stand out */
+    margin-bottom: 20px;
+}
+
+.heading span{
+    color: #23c483;
+}
+
+/* .cta-button {
+    padding: 15px 30px;
+    font-size: 20px;
+    color: #fff;
+    background-color: #ff5722;
+    border: none;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    border-radius: 5px;
+}
+
+.cta-button:hover {
+    background-color: #e64a19;
+} */
+/* From Uiverse.io by cssbuttons-io */ 
+.cta-button {
+    padding: 1.3em 3em;
+    font-size: 12px;
+    text-transform: uppercase;
+    letter-spacing: 2.5px;
+    font-weight: 500;
+    color: #000;
+    background-color: #ffceb9;
+    border: none;
+    border-radius: 45px;
+    box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s ease 0s;
+    cursor: pointer;
+    outline: none;
+    color: #fff;
+  }
+
+  .cta-button a{
+    /* color: #fff; */
+    text-decoration: none;
+  }
+  
+  .cta-button:hover {
+    background-color: #23c483;
+    box-shadow: 0px 15px 20px rgba(46, 229, 157, 0.4);
+    color: #fff;
+    transform: translateY(-7px);
+  }
+  
+  .cta-button:active {
+    transform: translateY(-1px);
+  }
+    </style>
+    
+</body>
+</html>

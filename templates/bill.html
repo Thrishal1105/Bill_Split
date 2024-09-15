@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bill Splitter</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Restaurant Bill Splitter</h1>
+        <form id="billForm">
+            <div class="input-group">
+                <label for="totalAmount">Total Amount:</label>
+                <input  id="totalAmount" placeholder="Enter total amount" required>
+            </div>
+            <div class="input-group">
+                <label for="members">Number of Members:</label>
+                <select id="members" required>
+                    <option value="" disabled selected>Select members</option>
+                    <option value="1">1</option>
+                    <option value="2">2</option>
+                    <option value="3">3</option>
+                    <option value="4">4</option>
+                    <option value="5">5</option>
+                    <option value="6">6</option>
+                    <option value="7">7</option>
+                    <option value="8">8</option>
+                    <option value="9">9</option>
+                    <option value="10">10</option>
+                </select>
+            </div>
+            <div class="input-group">
+                <label for="tip">Tip Percentage:</label>
+                <select id="tip">
+                    <option value="0">0%</option>
+                    <option value="5">5%</option>
+                    <option value="10">10%</option>
+                    <option value="15">15%</option>
+
+                </select>
+            </div>
+            <button type="button" class="calculate-btn" onclick="calculateBill()">Calculate</button>
+        </form>
+        <div class="result">
+            <h2>Each Member Pays: <span id="resultAmount">$0.00</span></h2>
+        </div>
+    </div>
+    <style>
+        * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background-image: url('https://res.cloudinary.com/dalmvzwgj/image/upload/v1725719153/img5_xlg1qi.jpg'); 
+    background-size: cover; 
+    background-position: center;
+    background-repeat: no-repeat; 
+}
+
+
+.container {
+    /* background: #fff; */
+    background: transparent;
+    padding: 20px;
+    /* border-radius: 8px; */
+    /* box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); */
+    width: 350px;
+    text-align: center;
+}
+
+h1 {
+    margin-bottom: 20px;
+    font-size: 24px;
+    color: red;
+}
+
+.input-group {
+    margin-bottom: 15px;
+    text-align: left;
+}
+
+label {
+    display: block;
+    margin-bottom: 5px;
+    font-size: 14px;
+    color: #555;
+}
+
+input, select {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    font-size: 14px;
+}
+
+.calculate-btn {
+    background-color: #28a745;
+    color: #fff;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: background-color 0.3s ease;
+    margin-top: 10px;
+}
+
+.calculate-btn:hover {
+    background-color: #218838;
+}
+
+.result {
+    margin-top: 20px;
+}
+
+.result h2{
+    color: #fff;
+}
+
+#resultAmount {
+    color: #e74c3c;
+    font-size: 20px;
+}
+
+    </style>
+    
+
+    <script>
+      
+             function calculateBill() {
+        // Getting input values from the form
+        const totalAmount = parseFloat(document.getElementById('totalAmount').value);
+        const members = parseInt(document.getElementById('members').value);
+        const tipPercentage = parseInt(document.getElementById('tip').value);
+
+        // Validation checks to ensure correct inputs
+        if (isNaN(totalAmount) || isNaN(members) || isNaN(tipPercentage)) {
+            alert("Please enter valid numbers in all fields.");
+            return;
+        }
+
+        // Sending data to Flask via POST request
+        fetch('/calculate', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+                totalAmount: totalAmount,
+                members: members,
+                tip: tipPercentage
+            }),
+        })
+        .then(response => response.json())
+        .then(data => {
+            // Displaying the calculated result
+            if (data.error) {
+                alert(data.error);
+            } else {
+                document.getElementById('resultAmount').innerText = `$${data.perPerson.toFixed(2)}`;
+            }
+        })
+        .catch(error => {
+            console.error('Error:', error);
+        });
+    }
+</script>
+
+
+    </script>
+</body>
+</html>
